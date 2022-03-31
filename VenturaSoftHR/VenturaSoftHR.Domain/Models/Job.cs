@@ -1,4 +1,5 @@
-﻿using VenturaSoftHR.Domain.Specifications;
+﻿using VenturaSoftHR.Common.Exceptions;
+using VenturaSoftHR.Domain.Specifications;
 
 namespace VenturaSoftHR.Domain;
 
@@ -16,7 +17,7 @@ public class Job
         var specification = new ValidJobSpecification();
 
         if (!specification.IsSatisfiedBy(finalDate, salary))
-            throw new Exception();
+            throw new GenericErrorException("Final date is less than current date or salary is less than 0.");
 
         Name = name;
         Salary = salary;

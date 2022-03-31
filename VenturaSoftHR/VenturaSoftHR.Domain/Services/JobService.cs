@@ -25,7 +25,7 @@ public class JobService : IJobService
         }
         catch (Exception ex)
         {
-            throw new GenericErrorException(ex.GetType().Name, ex.Message);
+            throw new GenericErrorException(ex.Message);
         }
     }
 
@@ -38,7 +38,7 @@ public class JobService : IJobService
         }
         catch (Exception ex)
         {
-            throw new GenericErrorException(ex.GetType().Name, ex.Message);
+            throw new GenericErrorException(ex.Message);
         }
     }
 }

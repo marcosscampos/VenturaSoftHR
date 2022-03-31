@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using VenturaSoftHR.Api.Common;
 using VenturaSoftHR.ApplicationService;
 using VenturaSoftHR.Domain.Abstractions.Service;
 
@@ -13,29 +14,30 @@ public class JobController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
-        return await Execute(async () => await _jobService.GetAll());
+        try
+        {
+            var job = await _jobService.GetAll();
+            return Ok(job);
+        }
+        catch (Exception ex)
+        {
+            var error = ErrorHandlerFactory.Create(ex);
+            return BadRequest(error);
+        }
     }
 
     [HttpPost]
     public async Task<IActionResult> CreateJob([FromBody] CreateJobDto dto)
     {
-        return await Execute(async () =>
-        {
-            await _jobService.CreateJob(dto);
-            return "Processed";
-        });
-    }
-
-    private async Task<IActionResult> Execute(Func<Task<object>> func)
-    {
         try
         {
-            var result = await func();
-            return Ok(result);
+            await _jobService.CreateJob(dto);
+            return Created(string.Empty, "Processed");
         }
         catch (Exception ex)
         {
-            return BadRequest(ex);
+            var error = ErrorHandlerFactory.Create(ex);
+            return BadRequest(error);
         }
     }
 }

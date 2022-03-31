@@ -9,7 +9,7 @@ namespace VenturaSoftHR.Repository
     {
         private readonly ApplicationDbContext _context;
         private readonly DbSet<Job> _jobs;
-        public JobRepository(ApplicationDbContext context, DbSet<Job> jobs)
+        public JobRepository(ApplicationDbContext context)
         {
             _context = context;
             _jobs = _context.Set<Job>();
