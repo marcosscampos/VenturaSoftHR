@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Reflection;
-using VenturaSoftHR.Domain;
+using VenturaSoftHR.Domain.Models;
 
 namespace VenturaSoftHR.Repository.Context;
 

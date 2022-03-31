@@ -6,7 +6,6 @@ using VenturaSoftHR.Domain.Services;
 using VenturaSoftHR.Repository;
 using VenturaSoftHR.Repository.Context;
 using VenturaSoftHR.Repository.DatabaseSettings;
-using VenturaSoftHR.Repository.Mapping;
 
 namespace VenturaSoftHR.Api.Common;
 
@@ -20,7 +19,6 @@ public static class DependencyInjectionExtensions
 
     private static void USeServices(this IServiceCollection services)
     {
-        services.AddAutoMapper(x => x.AddProfile<AutoMapping>(), typeof(Program));
         services.AddScoped<IJobService, JobService>();
     }
 

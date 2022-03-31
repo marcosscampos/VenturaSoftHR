@@ -1,4 +1,4 @@
-﻿namespace VenturaSoftHR.ApplicationService;
+﻿namespace VenturaSoftHR.ApplicationService.DTO.Jobs;
 
 public class GetAllJobsDto
 {

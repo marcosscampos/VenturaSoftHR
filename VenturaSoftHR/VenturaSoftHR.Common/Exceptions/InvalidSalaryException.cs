@@ -3,9 +3,10 @@
 namespace VenturaSoftHR.Common.Exceptions;
 
 [Serializable]
-public class GenericErrorException : Exception
+public class InvalidSalaryException : Exception
 {
-    public GenericErrorException(string message) : base(message)
+    public InvalidSalaryException(string message) : base(message)
     {
+
     }
 }

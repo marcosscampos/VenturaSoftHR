@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using VenturaSoftHR.Domain;
 using VenturaSoftHR.Domain.Abstractions.Repository;
+using VenturaSoftHR.Domain.Models;
 using VenturaSoftHR.Repository.Context;
 
 namespace VenturaSoftHR.Repository
@@ -21,9 +21,20 @@ namespace VenturaSoftHR.Repository
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IList<Job>> GetAll()
+        public async Task<IList<Job>> GetAll() => await _jobs.AsNoTracking().ToListAsync();
+
+        public async Task DeleteJob(Job job)
         {
-            return await _jobs.AsNoTracking().ToListAsync();
+            _jobs.Remove(job);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<Job?> GetById(Guid id) => await _jobs.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
+
+        public async Task UpdateJob(Job job)
+        {
+            _jobs.Update(job);
+            await _context.SaveChangesAsync();
         }
     }
 }
