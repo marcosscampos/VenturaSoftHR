@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32319.34
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VenturaSoftHR.Api", "VenturaSoftHR\VenturaSoftHR.Api.csproj", "{A33F88CC-57AE-4E4E-B0B7-C08DB55B18B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VenturaSoftHR.Api", "VenturaSoftHR\VenturaSoftHR.Api.csproj", "{A33F88CC-57AE-4E4E-B0B7-C08DB55B18B0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01.API", "01.API", "{098D9A1E-DE7A-4AA4-9729-FA745AAC817A}"
 EndProject
@@ -11,13 +11,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02.Core", "02.Core", "{E290
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03.Infra", "03.Infra", "{13B40C9D-2CEE-4B6B-AFDA-361F666282E0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VenturaSoftHR.Domain", "VenturaSoftHR.Domain\VenturaSoftHR.Domain.csproj", "{ABC318C3-7125-4A6A-A22D-2FBD334EEC1E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VenturaSoftHR.Domain", "VenturaSoftHR.Domain\VenturaSoftHR.Domain.csproj", "{ABC318C3-7125-4A6A-A22D-2FBD334EEC1E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VenturaSoftHR.ApplicationService", "VenturaSoftHR.ApplicationService\VenturaSoftHR.ApplicationService.csproj", "{6D8334EE-B259-4660-9634-25F500A97F9E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VenturaSoftHR.ApplicationService", "VenturaSoftHR.ApplicationService\VenturaSoftHR.ApplicationService.csproj", "{6D8334EE-B259-4660-9634-25F500A97F9E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VenturaSoftHR.Repository", "VenturaSoftHR.Repository\VenturaSoftHR.Repository.csproj", "{31480ED4-3AE2-4924-8761-6ED075D29CB1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VenturaSoftHR.Repository", "VenturaSoftHR.Repository\VenturaSoftHR.Repository.csproj", "{31480ED4-3AE2-4924-8761-6ED075D29CB1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VenturaSoftHR.Common", "VenturaSoftHR.Common\VenturaSoftHR.Common.csproj", "{E2F65BAB-4E19-48AA-9B53-F0739BA521F7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VenturaSoftHR.Common", "VenturaSoftHR.Common\VenturaSoftHR.Common.csproj", "{E2F65BAB-4E19-48AA-9B53-F0739BA521F7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04.Test", "04.Test", "{1FDC41D5-11FB-4B3B-BAAE-700C4D4B2563}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VenturaSoftHR.Tests", "VenturaSoftHR.Tests\VenturaSoftHR.Tests.csproj", "{9EBE3063-26EA-49CF-8035-0A14D46B4483}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +49,10 @@ Global
 		{E2F65BAB-4E19-48AA-9B53-F0739BA521F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E2F65BAB-4E19-48AA-9B53-F0739BA521F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E2F65BAB-4E19-48AA-9B53-F0739BA521F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9EBE3063-26EA-49CF-8035-0A14D46B4483}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9EBE3063-26EA-49CF-8035-0A14D46B4483}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9EBE3063-26EA-49CF-8035-0A14D46B4483}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9EBE3063-26EA-49CF-8035-0A14D46B4483}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -55,6 +63,7 @@ Global
 		{6D8334EE-B259-4660-9634-25F500A97F9E} = {E2908238-26C6-42DA-A0C3-21638B0567AF}
 		{31480ED4-3AE2-4924-8761-6ED075D29CB1} = {13B40C9D-2CEE-4B6B-AFDA-361F666282E0}
 		{E2F65BAB-4E19-48AA-9B53-F0739BA521F7} = {13B40C9D-2CEE-4B6B-AFDA-361F666282E0}
+		{9EBE3063-26EA-49CF-8035-0A14D46B4483} = {1FDC41D5-11FB-4B3B-BAAE-700C4D4B2563}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D833DD4E-FDD4-45C5-AF9F-DDC949C40439}
