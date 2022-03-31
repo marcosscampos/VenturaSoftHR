@@ -21,7 +21,7 @@ namespace VenturaSoftHR.Repository
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IList<Job>> GetAll() => await _jobs.AsNoTracking().ToListAsync();
+        public async Task<IList<Job>> GetAll() => await _jobs.AsNoTracking().Where(x => x.FinalDate > DateTime.Now).ToListAsync();
 
         public async Task DeleteJob(Job job)
         {
