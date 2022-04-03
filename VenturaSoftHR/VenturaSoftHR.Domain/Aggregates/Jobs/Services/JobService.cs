@@ -36,7 +36,7 @@ public class JobService : IJobService
         if (repo is null)
             throw new NotFoundException($"Job not found with id #{job.Id}");
 
-        var updatedJob = JobFactory.Create(job, repo);
+        var updatedJob = JobFactory.Create(job.Id, job.Name, job.Description, job.Salary, job.FinalDate);
         await _jobRepository.UpdateAsync(updatedJob);
     }
 

@@ -57,6 +57,8 @@ public class JobServiceTest
         };
 
         var service = InitializeServices();
+        _jobRepositoryMock.Setup(x => x.GetByIdAsync(It.IsAny<Guid>())).Returns(async () => await DataBuilder.GetById());
+        _jobRepositoryMock.Setup(x => x.UpdateAsync(It.IsAny<Job>())).Returns(() => Task.FromResult(true));
         var isUpdated = service.UpdateJob(job).IsCompletedSuccessfully;
 
         Assert.True(isUpdated);
