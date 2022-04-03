@@ -47,7 +47,7 @@ public class JobService : IJobService
         if (job is null)
             throw new NotFoundException($"Job not found with id #{id}");
 
-        await _jobRepository.UpdateAsync(job);
+        await _jobRepository.DeleteAsync(job);
     }
 
     public async Task<List<Job>> GetAllJobsByCriteria(SeachJobsQuery query)
