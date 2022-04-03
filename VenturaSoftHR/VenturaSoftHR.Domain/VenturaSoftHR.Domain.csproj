@@ -11,7 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\VenturaSoftHR.ApplicationService\VenturaSoftHR.Application.csproj" />
     <ProjectReference Include="..\VenturaSoftHR.Common\VenturaSoftHR.Common.csproj" />
   </ItemGroup>
 

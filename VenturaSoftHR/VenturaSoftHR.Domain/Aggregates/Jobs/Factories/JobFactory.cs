@@ -1,5 +1,4 @@
-﻿using VenturaSoftHR.Application.DTO.Jobs;
-using VenturaSoftHR.Domain.Aggregates.Jobs.Entities;
+﻿using VenturaSoftHR.Domain.Aggregates.Jobs.Entities;
 
 namespace VenturaSoftHR.Domain.Aggregates.Jobs.Factories;
 

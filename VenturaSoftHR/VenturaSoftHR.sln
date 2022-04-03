@@ -14,6 +14,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VenturaSoftHR.Domain", "VenturaSoftHR.Domain\VenturaSoftHR.Domain.csproj", "{ABC318C3-7125-4A6A-A22D-2FBD334EEC1E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VenturaSoftHR.Application", "VenturaSoftHR.ApplicationService\VenturaSoftHR.Application.csproj", "{6D8334EE-B259-4660-9634-25F500A97F9E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{ABC318C3-7125-4A6A-A22D-2FBD334EEC1E} = {ABC318C3-7125-4A6A-A22D-2FBD334EEC1E}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VenturaSoftHR.Repository", "VenturaSoftHR.Repository\VenturaSoftHR.Repository.csproj", "{31480ED4-3AE2-4924-8761-6ED075D29CB1}"
 EndProject

@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Net;
 using VenturaSoftHR.Api.Common;
 using VenturaSoftHR.Application.DTO.Jobs;
-using VenturaSoftHR.Domain.Aggregates.Jobs.Interfaces;
+using VenturaSoftHR.Application.Services.Interfaces;
 using VenturaSoftHR.Domain.Aggregates.Jobs.Queries;
 
 namespace VenturaSoftHR.Api.Controllers;

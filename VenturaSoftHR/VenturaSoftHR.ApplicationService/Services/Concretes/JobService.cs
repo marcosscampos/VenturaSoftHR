@@ -1,12 +1,12 @@
 ﻿using VenturaSoftHR.Application.DTO.Jobs;
+using VenturaSoftHR.Application.Services.Interfaces;
 using VenturaSoftHR.Common.Exceptions;
 using VenturaSoftHR.Domain.Aggregates.Jobs.Entities;
 using VenturaSoftHR.Domain.Aggregates.Jobs.Factories;
-using VenturaSoftHR.Domain.Aggregates.Jobs.Interfaces;
 using VenturaSoftHR.Domain.Aggregates.Jobs.Queries;
 using VenturaSoftHR.Domain.Aggregates.Jobs.Repositories;
 
-namespace VenturaSoftHR.Domain.Aggregates.Jobs.Services;
+namespace VenturaSoftHR.Application.Services.Concretes;
 
 public class JobService : IJobService
 {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using VenturaSoftHR.Domain.Aggregates.Jobs.Interfaces;
+using VenturaSoftHR.Application.Services.Concretes;
+using VenturaSoftHR.Application.Services.Interfaces;
 using VenturaSoftHR.Domain.Aggregates.Jobs.Repositories;
-using VenturaSoftHR.Domain.Aggregates.Jobs.Services;
 using VenturaSoftHR.Domain.SeedWork.Settings;
 using VenturaSoftHR.Repository;
 using VenturaSoftHR.Repository.Context;

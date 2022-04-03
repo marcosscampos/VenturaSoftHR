@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using VenturaSoftHR.Application.DTO.Jobs;
+using VenturaSoftHR.Application.Services.Concretes;
 using VenturaSoftHR.Domain.Aggregates.Jobs.Entities;
 using VenturaSoftHR.Domain.Aggregates.Jobs.Repositories;
-using VenturaSoftHR.Domain.Aggregates.Jobs.Services;
 using VenturaSoftHR.Tests.Data;
 using Xunit;
 
