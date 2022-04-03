@@ -17,7 +17,7 @@ public class SeachJobsQuery
             filter &= new DirectSpecification<Job>(x => x.Salary.Value >= Salary);
         
         if(FinalDate > DateTime.MinValue)
-            filter &= new DirectSpecification<Job>(x => x.FinalDate > FinalDate);
+            filter &= new DirectSpecification<Job>(x => x.FinalDate >= FinalDate);
         
         return filter.IsSatisfiedBy();
     }
