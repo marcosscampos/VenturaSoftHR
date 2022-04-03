@@ -1,40 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
-using VenturaSoftHR.Domain.Abstractions.Repository;
-using VenturaSoftHR.Domain.Models;
+﻿using VenturaSoftHR.Domain.Aggregates.Jobs.Entities;
+using VenturaSoftHR.Domain.Aggregates.Jobs.Repositories;
 using VenturaSoftHR.Repository.Context;
 
 namespace VenturaSoftHR.Repository
 {
-    public class JobRepository : IJobRepository
+    public class JobRepository : Repository<Job>, IJobRepository
     {
-        private readonly ApplicationDbContext _context;
-        private readonly DbSet<Job> _jobs;
-        public JobRepository(ApplicationDbContext context)
+        public JobRepository(ApplicationDbContext context) : base(context)
         {
-            _context = context;
-            _jobs = _context.Set<Job>();
-        }
-
-        public async Task CreateJob(Job job)
-        {
-            await _jobs.AddAsync(job);
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task<IList<Job>> GetAll() => await _jobs.AsNoTracking().Where(x => x.FinalDate > DateTime.Now).ToListAsync();
-
-        public async Task DeleteJob(Job job)
-        {
-            _jobs.Remove(job);
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task<Job?> GetById(Guid id) => await _jobs.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
-
-        public async Task UpdateJob(Job job)
-        {
-            _jobs.Update(job);
-            await _context.SaveChangesAsync();
         }
     }
 }

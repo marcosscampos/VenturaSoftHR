@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using VenturaSoftHR.Domain.Models;
+using VenturaSoftHR.Domain.Aggregates.Jobs.Entities;
 
 namespace VenturaSoftHR.Repository.Configuration;
 
@@ -13,7 +13,7 @@ public class JobConfiguration : IEntityTypeConfiguration<Job>
         builder.Property(x => x.Name).IsRequired();
         builder.Property(x => x.Description).IsRequired();
         builder.Property(x => x.CreationDate).IsRequired();
-        builder.Property(x => x.FinalDate).IsRequired();
+        builder.Property(x => x.FinalDate).HasConversion(x => x, x => x);
 
         builder.Property(x => x.Salary).HasConversion(x => x.Value, x => new Salary(x));
     }

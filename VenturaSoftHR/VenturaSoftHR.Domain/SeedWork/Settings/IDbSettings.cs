@@ -1,4 +1,4 @@
-﻿namespace VenturaSoftHR.Domain.Abstractions.Settings;
+﻿namespace VenturaSoftHR.Domain.SeedWork.Settings;
 
 public interface IDbSettings
 {

@@ -1,4 +1,4 @@
-﻿using VenturaSoftHR.Domain.Abstractions.Settings;
+﻿using VenturaSoftHR.Domain.SeedWork.Settings;
 
 namespace VenturaSoftHR.Repository.DatabaseSettings;
 

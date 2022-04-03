@@ -1,7 +1,4 @@
-﻿using VenturaSoftHR.Common.Exceptions;
-using VenturaSoftHR.Domain.Specifications;
-
-namespace VenturaSoftHR.Domain.Models
+﻿namespace VenturaSoftHR.Domain.Aggregates.Jobs.Entities
 {
     public class Salary
     {

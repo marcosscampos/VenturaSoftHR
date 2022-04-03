@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using VenturaSoftHR.Domain.Models;
+using VenturaSoftHR.Domain.Aggregates.Jobs.Entities;
 
 namespace VenturaSoftHR.Tests.Data;
 

@@ -1,4 +1,4 @@
-﻿namespace VenturaSoftHR.ApplicationService.DTO.Jobs;
+﻿namespace VenturaSoftHR.Application.DTO.Jobs;
 
 public class UpdateJobDto
 {

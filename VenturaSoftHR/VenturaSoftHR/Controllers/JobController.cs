@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using VenturaSoftHR.Api.Common;
-using VenturaSoftHR.ApplicationService.DTO.Jobs;
-using VenturaSoftHR.Domain.Abstractions.Service;
+using VenturaSoftHR.Application.DTO.Jobs;
+using VenturaSoftHR.Domain.Aggregates.Jobs.Interfaces;
 
 namespace VenturaSoftHR.Api.Controllers;
 
@@ -18,6 +18,21 @@ public class JobController : ControllerBase
         try
         {
             var job = await _jobService.GetAll();
+            return Ok(job);
+        }
+        catch (Exception ex)
+        {
+            var error = ErrorHandlerFactory.Create(ex);
+            return BadRequest(error);
+        }
+    }
+
+    [HttpGet("criteria")]
+    public async Task<IActionResult> GetByCriteria([FromQuery] decimal salary)
+    {
+        try
+        {
+            var job = await _jobService.GetAllJobsByCriteria(salary);
             return Ok(job);
         }
         catch (Exception ex)
