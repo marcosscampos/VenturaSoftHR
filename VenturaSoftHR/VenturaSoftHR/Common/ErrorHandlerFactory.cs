@@ -10,6 +10,6 @@ public static class ErrorHandlerFactory
         InvalidSalaryException e => new ErrorHandler(e.GetType().Name, e.Message),
         InvalidFinalDateException e => new ErrorHandler(e.GetType().Name, e.Message),
         NotFoundException e => new ErrorHandler(e.GetType().Name, e.Message),
-        _ => new ErrorHandler()
+        _ => new ErrorHandler(exception.GetType().Name, exception.Message)
     };
 }
