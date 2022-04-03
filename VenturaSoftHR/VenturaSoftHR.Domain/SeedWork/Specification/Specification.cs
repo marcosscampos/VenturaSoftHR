@@ -2,13 +2,11 @@
 
 namespace VenturaSoftHR.Domain.SeedWork.Specification;
 
-public abstract class Specification<T>
+public abstract class Specification<T> : ISpecification<T> where T : class
 {
-    public abstract Expression<Func<T, bool>> ToExpression();
+    public abstract Expression<Func<T, bool>> IsSatisfiedBy();
 
-    public bool IsSatisfiedBy(T entity)
-    {
-        Func<T, bool> predicate = ToExpression().Compile();
-        return predicate(entity);
-    }
+    public static Specification<T> operator &(Specification<T> right, Specification<T> left) 
+        => new AndSpecification<T>(right, left);
 }
+

@@ -1,5 +1,6 @@
 ﻿using VenturaSoftHR.Application.DTO.Jobs;
 using VenturaSoftHR.Domain.Aggregates.Jobs.Entities;
+using VenturaSoftHR.Domain.Aggregates.Jobs.Queries;
 
 namespace VenturaSoftHR.Domain.Aggregates.Jobs.Interfaces;
 
@@ -10,5 +11,5 @@ public interface IJobService
     Task<Job> GetById(Guid id);
     Task UpdateJob(UpdateJobDto job);
     Task DeleteJob(Guid id);
-    Task<List<Job>> GetAllJobsByCriteria(decimal salary);
+    Task<List<Job>> GetAllJobsByCriteria(SeachJobsQuery query);
 }

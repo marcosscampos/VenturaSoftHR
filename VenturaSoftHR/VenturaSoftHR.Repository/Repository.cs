@@ -1,8 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using VenturaSoftHR.Common;
+using System.Linq.Expressions;
 using VenturaSoftHR.Domain.SeedWork.Entities;
 using VenturaSoftHR.Domain.SeedWork.Repositories;
-using VenturaSoftHR.Domain.SeedWork.Specification;
 using VenturaSoftHR.Repository.Context;
 
 namespace VenturaSoftHR.Repository;
@@ -35,9 +34,9 @@ public class Repository<T> : IRepository<T> where T : Entity
         return await Entity.OrderBy(x => x.CreationDate).ToListAsync();
     }
 
-    public async Task<IEnumerable<T>> GetByCriteria(Specification<T> specification)
+    public async Task<IEnumerable<T>> GetByCriteria(Expression<Func<T, bool>> filter)
     {
-        var jobs = Entity.ToList().AsQueryable().Where(specification.ToExpression());
+        var jobs = Entity.ToList().AsQueryable().Where(filter);
         return await Task.FromResult(jobs);
     }
 

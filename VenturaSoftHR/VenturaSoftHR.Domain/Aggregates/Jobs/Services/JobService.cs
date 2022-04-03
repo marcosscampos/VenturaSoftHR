@@ -3,8 +3,8 @@ using VenturaSoftHR.Common.Exceptions;
 using VenturaSoftHR.Domain.Aggregates.Jobs.Entities;
 using VenturaSoftHR.Domain.Aggregates.Jobs.Factories;
 using VenturaSoftHR.Domain.Aggregates.Jobs.Interfaces;
+using VenturaSoftHR.Domain.Aggregates.Jobs.Queries;
 using VenturaSoftHR.Domain.Aggregates.Jobs.Repositories;
-using VenturaSoftHR.Domain.Aggregates.Jobs.Specifications;
 
 namespace VenturaSoftHR.Domain.Aggregates.Jobs.Services;
 
@@ -50,11 +50,9 @@ public class JobService : IJobService
         await _jobRepository.UpdateAsync(job);
     }
 
-    public async Task<List<Job>> GetAllJobsByCriteria(decimal salary)
+    public async Task<List<Job>> GetAllJobsByCriteria(SeachJobsQuery query)
     {
-        var spec = new ValidSalarySpecification(new Salary(salary));
-        var jobs = await _jobRepository.GetByCriteria(spec);
-
+        var jobs = await _jobRepository.GetByCriteria(query.BuildFilter());
         return jobs.ToList();
     }
 }
