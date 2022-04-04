@@ -1,91 +1,92 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics.CodeAnalysis;
 using VenturaSoftHR.CrossCutting.Enums;
 using VenturaSoftHR.CrossCutting.Notifications;
 using VenturaSoftHR.CrossCutting.Responses;
 
-namespace VenturaSoftHR.Api.Controllers
+namespace VenturaSoftHR.Api.Controllers;
+
+[ExcludeFromCodeCoverage]
+[ApiController]
+public class BaseController : ControllerBase
 {
-    [ApiController]
-    public class BaseController : ControllerBase
+    protected readonly INotificationHandler _notificationHandler;
+
+    public BaseController(
+        INotificationHandler notificationHandler)
     {
-        protected readonly INotificationHandler _notificationHandler;
+        _notificationHandler = notificationHandler;
+    }
 
-        public BaseController(
-            INotificationHandler notificationHandler)
+    protected IActionResult HandleResponse(object data = null)
+    {
+        var response = GetResponse(data);
+
+        if (_notificationHandler.HasErrorNotifications() && _notificationHandler.GetNotifications().All(x => x.Type == NotificationType.Error))
         {
-            _notificationHandler = notificationHandler;
-        }
-
-        protected IActionResult HandleResponse(object data = null)
-        {
-            var response = GetResponse(data);
-
-            if (_notificationHandler.HasErrorNotifications() && _notificationHandler.GetNotifications().All(x => x.Type == NotificationType.Error))
-            {
-                if (_notificationHandler.GetNotifications().All(x => x.Key.ToLower().Contains("notfound")))
-                    return NotFound(response);
-                else
-                    return BadRequest(response);
-            }
-
-            return Ok(response);
-        }
-
-        private object GetResponse(object data = null)
-        {
-            var response = new HandleResponse();
-
-            if (data != null)
-                response.Data = data;
+            if (_notificationHandler.GetNotifications().All(x => x.Key.ToLower().Contains("notfound")))
+                return NotFound(response);
             else
-                SetNotifications(response);
-
-
-            return response;
+                return BadRequest(response);
         }
 
-        private void SetNotifications(HandleResponse response)
-        {
-            if (!_notificationHandler.HasNotifications()) return;
+        return Ok(response);
+    }
 
-            var notifications = _notificationHandler.GetNotifications();
+    private object GetResponse(object data = null)
+    {
+        var response = new HandleResponse();
 
-            response.Success = notifications
-                .Where(x => x.Type == NotificationType.Success)
-                .Select(x => new NotificationResponse
-                {
-                    Code = x.ReferenceId,
-                    Reference = x.Reference,
-                    Notifications = notifications.Where(y => (y.Type == NotificationType.Warning || y.Type == NotificationType.Information) &&
-                                                               y.Reference.ToUpper().Equals(x.ReferenceId.ToUpper()))
-                                    .Select(z => new NotificationResponseItem
-                                    {
-                                        Key = z.Key,
-                                        Message = z.Value
-                                    })?.ToList()
-                })?.ToList();
+        if (data != null)
+            response.Data = data;
+        else
+            SetNotifications(response);
 
-            response.Success = response.Success.Any() ? response.Success : null;
 
-            var references = notifications.Where(x => x.Type == NotificationType.Error).Select(x => x.Reference).Distinct();
-            response.Errors = references.Any() ? new List<NotificationResponse>() : null;
+        return response;
+    }
 
-            foreach (var reference in references)
+    private void SetNotifications(HandleResponse response)
+    {
+        if (!_notificationHandler.HasNotifications()) return;
+
+        var notifications = _notificationHandler.GetNotifications();
+
+        response.Success = notifications
+            .Where(x => x.Type == NotificationType.Success)
+            .Select(x => new NotificationResponse
             {
-                var notification = notifications.FirstOrDefault(x => x.Reference == reference);
-                if (notification == null) continue;
+                Code = x.ReferenceId,
+                Reference = x.Reference,
+                Notifications = notifications.Where(y => (y.Type == NotificationType.Warning || y.Type == NotificationType.Information) &&
+                                                           y.Reference.ToUpper().Equals(x.ReferenceId.ToUpper()))
+                                .Select(z => new NotificationResponseItem
+                                {
+                                    Key = z.Key,
+                                    Message = z.Value
+                                })?.ToList()
+            })?.ToList();
 
-                response.Errors.Add(new NotificationResponse
+        response.Success = response.Success.Any() ? response.Success : null;
+
+        var references = notifications.Where(x => x.Type == NotificationType.Error).Select(x => x.Reference).Distinct();
+        response.Errors = references.Any() ? new List<NotificationResponse>() : null;
+
+        foreach (var reference in references)
+        {
+            var notification = notifications.FirstOrDefault(x => x.Reference == reference);
+            if (notification == null) continue;
+
+            response.Errors.Add(new NotificationResponse
+            {
+                Reference = notification.Reference,
+                Notifications = notifications.Where(x => x.Reference == notification.Reference).Select(x => new NotificationResponseItem
                 {
-                    Reference = notification.Reference,
-                    Notifications = notifications.Where(x => x.Reference == notification.Reference).Select(x => new NotificationResponseItem
-                    {
-                        Key = x.Key,
-                        Message = x.Value
-                    }).ToList()
-                });
-            }
-
+                    Key = x.Key,
+                    Message = x.Value
+                }).ToList()
+            });
         }
+
     }
 }

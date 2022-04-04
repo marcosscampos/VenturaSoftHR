@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
 using VenturaSoftHR.Domain.SeedWork.Entities;
 using VenturaSoftHR.Domain.SeedWork.Repositories;
@@ -6,6 +7,7 @@ using VenturaSoftHR.Repository.Context;
 
 namespace VenturaSoftHR.Repository;
 
+[ExcludeFromCodeCoverage]
 public class Repository<T> : IRepository<T> where T : Entity
 {
     private readonly ApplicationDbContext _context;

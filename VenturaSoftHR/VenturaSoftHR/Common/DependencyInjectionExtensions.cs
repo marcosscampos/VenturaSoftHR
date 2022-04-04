@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using VenturaSoftHR.Application.Services.Concretes;
 using VenturaSoftHR.Application.Services.Interfaces;
@@ -15,6 +16,7 @@ using VenturaSoftHR.Repository.DatabaseSettings;
 
 namespace VenturaSoftHR.Api.Common;
 
+[ExcludeFromCodeCoverage]
 public static class DependencyInjectionExtensions
 {
     public static void ConfigureApplicationDependencies(this IServiceCollection services, IConfiguration configuration)
