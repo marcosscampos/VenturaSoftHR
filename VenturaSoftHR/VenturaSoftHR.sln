@@ -30,6 +30,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "05.WebDriver", "05.WebDrive
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VenturaSoftHR.WebDriver", "VenturaSoftHR.WebDriver\VenturaSoftHR.WebDriver.csproj", "{F4837CA0-D6F5-400E-BF8B-2B63949A67A4}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "06.CrossCutting", "06.CrossCutting", "{6B08E102-EC92-45CB-904F-FCE236B45733}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VenturaSoftHR.CrossCutting", "VenturaSoftHR.CrossCutting\VenturaSoftHR.CrossCutting.csproj", "{585B1454-4E03-4AA5-A3B0-E52BE7D395E4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -64,6 +68,10 @@ Global
 		{F4837CA0-D6F5-400E-BF8B-2B63949A67A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F4837CA0-D6F5-400E-BF8B-2B63949A67A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F4837CA0-D6F5-400E-BF8B-2B63949A67A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{585B1454-4E03-4AA5-A3B0-E52BE7D395E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{585B1454-4E03-4AA5-A3B0-E52BE7D395E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{585B1454-4E03-4AA5-A3B0-E52BE7D395E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{585B1454-4E03-4AA5-A3B0-E52BE7D395E4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -76,6 +84,7 @@ Global
 		{E2F65BAB-4E19-48AA-9B53-F0739BA521F7} = {13B40C9D-2CEE-4B6B-AFDA-361F666282E0}
 		{9EBE3063-26EA-49CF-8035-0A14D46B4483} = {1FDC41D5-11FB-4B3B-BAAE-700C4D4B2563}
 		{F4837CA0-D6F5-400E-BF8B-2B63949A67A4} = {8645FB43-690D-4965-B0F9-A86B11C115E3}
+		{585B1454-4E03-4AA5-A3B0-E52BE7D395E4} = {6B08E102-EC92-45CB-904F-FCE236B45733}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D833DD4E-FDD4-45C5-AF9F-DDC949C40439}

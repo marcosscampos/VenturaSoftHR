@@ -1,6 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using MediatR;
+using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 using VenturaSoftHR.Application.Services.Concretes;
 using VenturaSoftHR.Application.Services.Interfaces;
+using VenturaSoftHR.Common.Mapping;
+using VenturaSoftHR.CrossCutting.Localizations;
+using VenturaSoftHR.CrossCutting.Notifications;
+using VenturaSoftHR.Domain.Aggregates.Jobs.Commands;
 using VenturaSoftHR.Domain.Aggregates.Jobs.Repositories;
 using VenturaSoftHR.Domain.SeedWork.Settings;
 using VenturaSoftHR.Repository;
@@ -20,6 +26,12 @@ public static class DependencyInjectionExtensions
     private static void USeServices(this IServiceCollection services)
     {
         services.AddScoped<IJobService, JobService>();
+
+
+        services.AddScoped<INotificationHandler, NotificationHandler>();
+        services.AddScoped<ILocalizationManager, LocalizationManager>();
+        services.AddMediatR(typeof(CreateJobCommand).GetTypeInfo().Assembly);
+        MapperFactory.Setup();
     }
 
     private static void UseRepositories(this IServiceCollection services, Action<IDbSettings> dbSettings)

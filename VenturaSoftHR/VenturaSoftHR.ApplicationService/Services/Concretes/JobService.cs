@@ -1,6 +1,9 @@
-﻿using VenturaSoftHR.Application.DTO.Jobs;
+﻿using MediatR;
+using VenturaSoftHR.Application.DTO.Jobs;
 using VenturaSoftHR.Application.Services.Interfaces;
 using VenturaSoftHR.Common.Exceptions;
+using VenturaSoftHR.CrossCutting.Notifications;
+using VenturaSoftHR.Domain.Aggregates.Jobs.Commands;
 using VenturaSoftHR.Domain.Aggregates.Jobs.Entities;
 using VenturaSoftHR.Domain.Aggregates.Jobs.Factories;
 using VenturaSoftHR.Domain.Aggregates.Jobs.Queries;
@@ -8,17 +11,20 @@ using VenturaSoftHR.Domain.Aggregates.Jobs.Repositories;
 
 namespace VenturaSoftHR.Application.Services.Concretes;
 
-public class JobService : IJobService
+public class JobService : ApplicationServiceBase, IJobService
 {
     private readonly IJobRepository _jobRepository;
+    private readonly IMediator _mediator;
 
-    public JobService(IJobRepository jobRepository) => _jobRepository = jobRepository;
-
-    public async Task CreateJob(CreateJobDto job)
+    public JobService(IJobRepository jobRepository, IMediator mediator, INotificationHandler notification) : base(notification)
     {
-        var newJob = JobFactory.Create(job.Name, job.Description, job.Salary, job.FinalDate);
-        await _jobRepository.CreateAsync(newJob);
+        _jobRepository = jobRepository;
+        _mediator = mediator;
     }
+
+    public async Task CreateJob(CreateJobCommand command)
+    => await _mediator.Send(command);
+    
 
     public async Task<IList<Job>> GetAll()
     {
@@ -29,15 +35,14 @@ public class JobService : IJobService
     public async Task<Job> GetById(Guid id) => await _jobRepository.GetByIdAsync(id);
 
 
-    public async Task UpdateJob(UpdateJobDto job)
+    public async Task UpdateJob(UpdateJobCommand command)
     {
-        var repo = await _jobRepository.GetByIdAsync(job.Id);
+        var repo = await _jobRepository.GetByIdAsync(command.Job.Id);
 
         if (repo is null)
-            throw new NotFoundException($"Job not found with id #{job.Id}");
+            throw new NotFoundException($"Job not found with id #{command.Job.Id}");
 
-        var updatedJob = JobFactory.Create(job.Id, job.Name, job.Description, job.Salary, job.FinalDate);
-        await _jobRepository.UpdateAsync(updatedJob);
+        await _mediator.Send(command);
     }
 
     public async Task DeleteJob(Guid id)

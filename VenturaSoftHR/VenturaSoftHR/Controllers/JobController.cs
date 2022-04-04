@@ -2,15 +2,17 @@
 using VenturaSoftHR.Api.Common;
 using VenturaSoftHR.Application.DTO.Jobs;
 using VenturaSoftHR.Application.Services.Interfaces;
+using VenturaSoftHR.CrossCutting.Notifications;
+using VenturaSoftHR.Domain.Aggregates.Jobs.Commands;
 using VenturaSoftHR.Domain.Aggregates.Jobs.Queries;
 
 namespace VenturaSoftHR.Api.Controllers;
 
 [Route("jobs")]
-public class JobController : ControllerBase
+public class JobController : BaseController
 {
     private readonly IJobService _jobService;
-    public JobController(IJobService jobService) => _jobService = jobService;
+    public JobController(IJobService jobService, INotificationHandler notification) : base(notification) => _jobService = jobService;
 
     [HttpGet]
     public async Task<IActionResult> GetAll()
@@ -18,7 +20,7 @@ public class JobController : ControllerBase
         try
         {
             var job = await _jobService.GetAll();
-            return Ok(job);
+            return HandleResponse(job);
         }
         catch (Exception ex)
         {
@@ -33,7 +35,7 @@ public class JobController : ControllerBase
         try
         {
             var job = await _jobService.GetAllJobsByCriteria(query);
-            return Ok(job);
+            return HandleResponse(job);
         }
         catch (Exception ex)
         {
@@ -43,12 +45,12 @@ public class JobController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateJob([FromBody] CreateJobDto dto)
+    public async Task<IActionResult> CreateJob(CreateJobCommand command)
     {
         try
         {
-            await _jobService.CreateJob(dto);
-            return Created(string.Empty, "Processed");
+            await _jobService.CreateJob(command);
+            return HandleResponse();
         }
         catch (Exception ex)
         {
@@ -68,7 +70,7 @@ public class JobController : ControllerBase
             if (job is null)
                 return NotFound($"Job not found with id #{id}");
 
-            return Ok(job);
+            return HandleResponse(job);
         }
         catch (Exception ex)
         {
@@ -78,13 +80,13 @@ public class JobController : ControllerBase
     }
 
     [HttpPut]
-    public async Task<IActionResult> UpdateJob([FromBody] UpdateJobDto dto)
+    public async Task<IActionResult> UpdateJob(UpdateJobCommand command)
     {
         try
         {
-            await _jobService.UpdateJob(dto);
+            await _jobService.UpdateJob(command);
 
-            return Ok();
+            return HandleResponse();
         }
         catch (Exception ex)
         {
@@ -100,7 +102,7 @@ public class JobController : ControllerBase
         {
             await _jobService.DeleteJob(id);
 
-            return Ok();
+            return HandleResponse();
         }
         catch (Exception ex)
         {
