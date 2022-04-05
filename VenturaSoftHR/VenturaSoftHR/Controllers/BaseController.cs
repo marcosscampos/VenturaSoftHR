@@ -1,12 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics.CodeAnalysis;
 using VenturaSoftHR.CrossCutting.Enums;
 using VenturaSoftHR.CrossCutting.Notifications;
 using VenturaSoftHR.CrossCutting.Responses;
 
 namespace VenturaSoftHR.Api.Controllers;
 
-[ExcludeFromCodeCoverage]
 [ApiController]
 public class BaseController : ControllerBase
 {

@@ -7,7 +7,6 @@ using VenturaSoftHR.Repository.Context;
 
 namespace VenturaSoftHR.Repository;
 
-[ExcludeFromCodeCoverage]
 public class Repository<T> : IRepository<T> where T : Entity
 {
     private readonly ApplicationDbContext _context;
@@ -36,7 +35,7 @@ public class Repository<T> : IRepository<T> where T : Entity
         return await Entity.OrderBy(x => x.CreationDate).ToListAsync();
     }
 
-    public async Task<IEnumerable<T>> GetByCriteria(Expression<Func<T, bool>> filter)
+    public async Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> filter)
     {
         var jobs = Entity.ToList().AsQueryable().Where(filter);
         return await Task.FromResult(jobs);
@@ -44,7 +43,7 @@ public class Repository<T> : IRepository<T> where T : Entity
 
     public async Task<T> GetByIdAsync(Guid id)
     {
-        return await Entity.FirstOrDefaultAsync(x => x.Id == id);
+        return await Entity.FindAsync(id);
     }
 
     public async Task UpdateAsync(T entity)

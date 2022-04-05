@@ -1,4 +1,6 @@
 ﻿
+
+
 using Newtonsoft.Json;
 
 namespace VenturaSoftHR.Domain.Aggregates.Jobs.Commands;

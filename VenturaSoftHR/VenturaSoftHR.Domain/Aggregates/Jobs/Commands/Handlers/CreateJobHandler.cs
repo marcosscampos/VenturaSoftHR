@@ -16,11 +16,19 @@ public class CreateJobHandler : BaseJobHandler, IRequestHandler<CreateJobCommand
 
     public async Task<Unit> Handle(CreateJobCommand request, CancellationToken cancellationToken)
     {
+        if (!IsValid(request))
+            return Unit.Value;
+
         if(!Notification.HasErrorNotifications())
         {
-            Notification.RaiseSuccess("", request.Job.Name);
-            var CreatedJob = JobFactory.Create(request.Job.Name, request.Job.Description, request.Job.Salary.Value, request.Job.FinalDate);
-            await CreateJob(CreatedJob);
+            foreach(var items in request.Job)
+            {
+                Notification.RaiseSuccess("", items.Name);
+                var CreatedJob = JobFactory.Create(items.Name, items.Description, items.Salary.Value, items.FinalDate);
+
+                await _jobRepository.CreateAsync(CreatedJob);
+                await CreateJob(CreatedJob);
+            }
         }
 
         return Unit.Value;

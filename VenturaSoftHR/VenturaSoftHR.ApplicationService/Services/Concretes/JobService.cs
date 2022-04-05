@@ -1,11 +1,9 @@
 ﻿using MediatR;
-using VenturaSoftHR.Application.DTO.Jobs;
 using VenturaSoftHR.Application.Services.Interfaces;
 using VenturaSoftHR.Common.Exceptions;
 using VenturaSoftHR.CrossCutting.Notifications;
 using VenturaSoftHR.Domain.Aggregates.Jobs.Commands;
 using VenturaSoftHR.Domain.Aggregates.Jobs.Entities;
-using VenturaSoftHR.Domain.Aggregates.Jobs.Factories;
 using VenturaSoftHR.Domain.Aggregates.Jobs.Queries;
 using VenturaSoftHR.Domain.Aggregates.Jobs.Repositories;
 
@@ -32,18 +30,12 @@ public class JobService : ApplicationServiceBase, IJobService
         return jobs.ToList();
     }
 
-    public async Task<Job> GetById(Guid id) => await _jobRepository.GetByIdAsync(id);
+    public async Task<Job> GetById(Guid id) 
+        => await _jobRepository.GetByIdAsync(id);
 
 
-    public async Task UpdateJob(UpdateJobCommand command)
-    {
-        var repo = await _jobRepository.GetByIdAsync(command.Job.Id);
-
-        if (repo is null)
-            throw new NotFoundException($"Job not found with id #{command.Job.Id}");
-
-        await _mediator.Send(command);
-    }
+    public async Task UpdateJob(UpdateJobCommand command) 
+        => await _mediator.Send(command);
 
     public async Task DeleteJob(Guid id)
     {
@@ -57,7 +49,7 @@ public class JobService : ApplicationServiceBase, IJobService
 
     public async Task<List<Job>> GetAllJobsByCriteria(SeachJobsQuery query)
     {
-        var jobs = await _jobRepository.GetByCriteria(query.BuildFilter());
+        var jobs = await _jobRepository.FindAsync(query.BuildFilter());
         return jobs.ToList();
     }
 }

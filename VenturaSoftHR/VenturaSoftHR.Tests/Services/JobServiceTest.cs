@@ -3,7 +3,6 @@ using Moq;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using VenturaSoftHR.Application.DTO.Jobs;
 using VenturaSoftHR.Application.Services.Concretes;
 using VenturaSoftHR.CrossCutting.Notifications;
 using VenturaSoftHR.Domain.Aggregates.Jobs.Commands;
@@ -46,7 +45,7 @@ public class JobServiceTest
     public async void ShouldSearchAJobById()
     {
         var service = InitializeServices();
-        _jobRepositoryMock.Setup(x => x.GetByIdAsync(It.IsAny<Guid>())).Returns(async () => await DataBuilder.GetById());
+        _jobRepositoryMock.Setup(x => x.GetByIdAsync(It.IsAny<Guid>())).Returns(Task.FromResult(DataBuilder.SingleJob()));
 
         var job = await service.GetById(Guid.NewGuid());
 
@@ -60,12 +59,26 @@ public class JobServiceTest
     {
         var job = new UpdateJobCommand()
         {
-            Job = new CreateOrUpdateJobRequest()
+            Job = new()
+            {
+                new()
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Desenvolvedor .NET Sênior",
+                    Description = "Desenvolver em .NET, mas podemos também te chamar pra mexer com Java e Delphi",
+                    Salary = new SalaryRequest()
+                    {
+                        Value = 15500
+                    },
+                    FinalDate = DateTime.Now.AddDays(1),
+                    CreationDate = DateTime.Now,
+                }
+            }
         };
 
         var service = InitializeServices();
-        _jobRepositoryMock.Setup(x => x.GetByIdAsync(It.IsAny<Guid>())).Returns(async () => await DataBuilder.GetById());
-        _jobRepositoryMock.Setup(x => x.UpdateAsync(It.IsAny<Job>())).Returns(() => Task.FromResult(true));
+        _jobRepositoryMock.Setup(x => x.GetByIdAsync(It.IsAny<Guid>())).Returns(Task.FromResult(DataBuilder.SingleJob()));
+        _jobRepositoryMock.Setup(x => x.UpdateAsync(It.IsAny<Job>())).Returns(Task.FromResult(true));
         
         var isUpdated = service.UpdateJob(job).IsCompletedSuccessfully;
 
@@ -78,7 +91,21 @@ public class JobServiceTest
     {
         var job = new CreateJobCommand()
         {
-            Job = new CreateOrUpdateJobRequest()
+            Job = new()
+            {
+                new()
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Desenvolvedor .NET Sênior",
+                    Description = "Desenvolver em .NET, mas podemos também te chamar pra mexer com Java",
+                    Salary = new SalaryRequest()
+                    {
+                        Value = 15000
+                    },
+                    FinalDate = DateTime.Now.AddDays(1),
+                    CreationDate = DateTime.Now,
+                }
+            }
         };
 
         var service = InitializeServices();
@@ -92,7 +119,7 @@ public class JobServiceTest
     public void ShouldDeleteAJob()
     {
         var service = InitializeServices();
-        _jobRepositoryMock.Setup(x => x.GetByIdAsync(It.IsAny<Guid>())).Returns(async () => await DataBuilder.GetById());
+        _jobRepositoryMock.Setup(x => x.GetByIdAsync(It.IsAny<Guid>())).Returns(Task.FromResult(DataBuilder.SingleJob()));
         _jobRepositoryMock.Setup(x => x.DeleteAsync(It.IsAny<Job>())).Returns(() => Task.FromResult(true));
 
         var isDeleted = service.DeleteJob(Guid.NewGuid()).IsCompletedSuccessfully;

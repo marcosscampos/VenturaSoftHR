@@ -19,7 +19,7 @@ public class UpdateJobValidator : BaseValidator<UpdateJobCommand>
 {
     public UpdateJobValidator()
     {
-        RuleFor(x => x.Job).ChildRules(job =>
+        RuleForEach(x => x.Job).ChildRules(job =>
         {
             job.RuleFor(x => x.Salary).NotNull().WithState(x => AddCommandErrorObject(EntityError.InvalidSalary, $"{x.Name}"));
             job.RuleFor(x => x.Salary.Value).NotEqual(0).WithState(x => AddCommandErrorObject(EntityError.SalaryNotZero, $"{x.Name}"));

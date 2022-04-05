@@ -6,12 +6,13 @@ namespace VenturaSoftHR.Repository.Context;
 
 public class ApplicationDbContext : DbContext
 {
-    DbSet<Job> Jobs;
+    public DbSet<Job> Jobs { get; set; }
 
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> opt) : base(opt)
     {
 
     }
+    public ApplicationDbContext() { }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder) 
         => modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());

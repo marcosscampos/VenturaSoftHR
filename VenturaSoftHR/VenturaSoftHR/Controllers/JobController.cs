@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using VenturaSoftHR.Api.Common;
-using VenturaSoftHR.Application.DTO.Jobs;
 using VenturaSoftHR.Application.Services.Interfaces;
 using VenturaSoftHR.CrossCutting.Notifications;
 using VenturaSoftHR.Domain.Aggregates.Jobs.Commands;
@@ -9,6 +8,7 @@ using VenturaSoftHR.Domain.Aggregates.Jobs.Queries;
 namespace VenturaSoftHR.Api.Controllers;
 
 [Route("jobs")]
+[ApiController]
 public class JobController : BaseController
 {
     private readonly IJobService _jobService;

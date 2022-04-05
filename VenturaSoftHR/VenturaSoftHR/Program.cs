@@ -1,4 +1,6 @@
+using Newtonsoft.Json;
 using VenturaSoftHR.Api.Common;
+using VenturaSoftHR.Api.Docs.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,9 +12,20 @@ host.ConfigureAppConfiguration((HostBuilderContext context, IConfigurationBuilde
 // Add services to the container.
 builder.Services.ConfigureApplicationDependencies(builder.Configuration);
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddNewtonsoftJson(x =>
+{
+    x.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+    x.UseMemberCasing();
+});
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(x =>
+{
+    x.OrderActionsBy((s) => $"{s.ActionDescriptor.RouteValues["controller"]}_{s.HttpMethod}");
+    x.DocumentFilter<OperationsOrderingFilter>();
+    x.OperationFilter<SwaggerExcludeFilter>();
+    x.OperationFilter<JsonIgnoreQueryOperationFilter>();
+    x.SchemaFilter<SwaggerIgnoreFilter>();
+});
 
 var app = builder.Build();
 
@@ -30,3 +43,5 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+public partial class Program { }

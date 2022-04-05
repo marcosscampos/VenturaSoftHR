@@ -1,13 +1,15 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
-
-    <IsPackable>false</IsPackable>
+	  <ProduceReferenceAssembly>false</ProduceReferenceAssembly>
+	  <PreserveCompilationContext>true</PreserveCompilationContext>
+	  <IsPackable>false</IsPackable>
   </PropertyGroup>
 
-  <ItemGroup>
+	<ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="6.0.3" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
     <PackageReference Include="Moq" Version="4.17.2" />
     <PackageReference Include="xunit" Version="2.4.1" />
@@ -24,6 +26,8 @@
   <ItemGroup>
     <ProjectReference Include="..\VenturaSoftHR.ApplicationService\VenturaSoftHR.Application.csproj" />
     <ProjectReference Include="..\VenturaSoftHR.Domain\VenturaSoftHR.Domain.csproj" />
+    <ProjectReference Include="..\VenturaSoftHR.Repository\VenturaSoftHR.Repository.csproj" />
+    <ProjectReference Include ="..\VenturaSoftHR\VenturaSoftHR.Api.csproj"/>
   </ItemGroup>
 
 </Project>
