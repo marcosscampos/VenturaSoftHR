@@ -29,10 +29,10 @@ public class UpdateJobHandler : BaseJobHandler, IRequestHandler<UpdateJobCommand
                 var job = await _jobRepository.GetByIdAsync(items.Id);
 
                 var UpdatedJob = JobFactory.Create(items.Name, items.Description, items.Salary.Value, items.FinalDate);
-                job.Name = UpdatedJob.Name;
-                job.Description = UpdatedJob.Description;
-                job.Salary = UpdatedJob.Salary;
-                job.FinalDate = UpdatedJob.FinalDate;
+                job.Name = UpdatedJob.Name ?? job.Name;
+                job.Description = UpdatedJob.Description ?? job.Description;
+                job.Salary = UpdatedJob.Salary ?? job.Salary;
+                job.FinalDate = UpdatedJob.FinalDate != DateTime.MinValue ? UpdatedJob.FinalDate : job.FinalDate;
 
                 await _jobRepository.UpdateAsync(job);
                 await UpdateJob(job);
